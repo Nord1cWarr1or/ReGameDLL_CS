@@ -278,7 +278,7 @@ enum ThrowDirection
 	THROW_HITVEL_MINUS_AIRVEL
 };
 
-const float MAX_ID_RANGE            = 2048.0f;
+const float MAX_ID_RANGE            = 8192.0f;
 const float MAX_SPEC_ID_RANGE       = 8192.0f;
 const int   MAX_SBAR_STRING         = 128;
 
