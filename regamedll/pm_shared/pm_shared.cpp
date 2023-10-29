@@ -2843,16 +2843,13 @@ void PM_ReduceTimers()
 	}
 	
 #ifdef REGAMEDLL_ADD
-	if(sv_legacy_movement.value > 0.0)
+	if(frame_msec < 10.0)
 	{
-		if(frame_msec < 10.0)
-		{
-			frame_msec *= 1.65f;
-		}
-		else
-		{
-			frame_msec *= 1.45f;
-		}
+		frame_msec *= 1.65f;
+	}
+	else
+	{
+		frame_msec *= 1.45f;
 	}
 #endif
 
