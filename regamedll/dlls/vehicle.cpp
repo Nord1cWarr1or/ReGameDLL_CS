@@ -311,6 +311,14 @@ void CFuncVehicle::UpdateSound()
 	if (flpitch > 200)
 		flpitch = 200;
 
+#ifdef REGAMEDLL_FIXES
+	// Avoid PITCH_NORM (100) — at this value GoldSrc routes the sound through
+	// the regular player instead of VOX sentences, causing adjacent precache
+	// sounds to bleed in. Clamp to 99 so the engine always uses the VOX path.
+	if (flpitch == 100)
+		flpitch = 99;
+#endif
+
 	if (!m_soundPlaying)
 	{
 		if (m_sounds < 5)
