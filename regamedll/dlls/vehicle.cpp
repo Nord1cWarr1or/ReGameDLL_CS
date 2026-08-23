@@ -441,6 +441,9 @@ void CFuncVehicle::CollisionDetection()
 
 				if (tr.flFraction == 1.0f)
 				{
+#ifdef REGAMEDLL_FIXES
+					m_iCollisionCount = 0;
+#endif
 					return;
 				}
 			}
@@ -454,6 +457,16 @@ void CFuncVehicle::CollisionDetection()
 			}
 			else if (tr.vecPlaneNormal.z < 0.65 || tr.fStartSolid)
 			{
+#ifdef REGAMEDLL_FIXES
+				m_iCollisionCount++;
+				if (m_iCollisionCount >= 3)
+				{
+					pev->speed = 0;
+					pev->velocity = g_vecZero;
+					pev->avelocity = g_vecZero;
+				}
+				else
+#endif
 				pev->speed *= -1.0;
 			}
 			else
@@ -472,6 +485,16 @@ void CFuncVehicle::CollisionDetection()
 			}
 			else if (tr.vecPlaneNormal[2] < 0.65f || tr.fStartSolid)
 			{
+#ifdef REGAMEDLL_FIXES
+				m_iCollisionCount++;
+				if (m_iCollisionCount >= 3)
+				{
+					pev->speed = 0;
+					pev->velocity = g_vecZero;
+					pev->avelocity = g_vecZero;
+				}
+				else
+#endif
 				pev->speed *= -1.0;
 			}
 			else
@@ -502,6 +525,9 @@ void CFuncVehicle::CollisionDetection()
 
 				if (tr.flFraction == 1.0f)
 				{
+#ifdef REGAMEDLL_FIXES
+					m_iCollisionCount = 0;
+#endif
 					return;
 				}
 			}
@@ -516,6 +542,16 @@ void CFuncVehicle::CollisionDetection()
 		}
 		else if (tr.vecPlaneNormal.z < 0.65 || tr.fStartSolid)
 		{
+#ifdef REGAMEDLL_FIXES
+			m_iCollisionCount++;
+			if (m_iCollisionCount >= 3)
+			{
+				pev->speed = 0;
+				pev->velocity = g_vecZero;
+				pev->avelocity = g_vecZero;
+			}
+			else
+#endif
 			pev->speed *= -1.0;
 		}
 		else
@@ -598,6 +634,12 @@ void CFuncVehicle::Next()
 		m_iTurnAngle = 0;
 		pev->avelocity = g_vecZero;
 		pev->velocity = g_vecZero;
+
+#ifdef REGAMEDLL_FIXES
+		// Ensure idle sound is playing when vehicle stops
+		if (m_fEngineOn && !m_soundPlaying)
+			UpdateSound();
+#endif
 
 		SetThink(&CFuncVehicle::Next);
 		NextThink(pev->ltime + time, TRUE);
@@ -805,8 +847,13 @@ void CFuncVehicle::Find()
 	UTIL_SetOrigin(pev, nextPos);
 	NextThink(pev->ltime + 0.1, FALSE);
 	SetThink(&CFuncVehicle::Next);
+#ifdef REGAMEDLL_FIXES
+	if (m_fEngineOn)
+		pev->speed = m_startSpeed;
+#else
 	pev->speed = m_startSpeed;
 	UpdateSound();
+#endif
 }
 
 void CFuncVehicle::NearestPath()
@@ -902,6 +949,10 @@ void CFuncVehicle::Spawn()
 
 	m_dir = 1;
 	m_flTurnStartTime = -1;
+#ifdef REGAMEDLL_FIXES
+	m_iCollisionCount = 0;
+	m_fEngineOn = FALSE;
+#endif
 
 	if (FStringNull(pev->target))
 	{
@@ -946,6 +997,10 @@ void CFuncVehicle::Restart()
 	m_flTurnStartTime = -1;
 	m_flUpdateSound = -1;
 	m_pDriver = nullptr;
+#ifdef REGAMEDLL_FIXES
+	m_iCollisionCount = 0;
+	m_fEngineOn = FALSE;
+#endif
 
 	if (FStringNull(pev->target))
 	{
@@ -954,6 +1009,9 @@ void CFuncVehicle::Restart()
 
 	UTIL_SetOrigin(pev, pev->oldorigin);
 	STOP_SOUND(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noise));
+#ifdef REGAMEDLL_FIXES
+	m_soundPlaying = 0;
+#endif
 
 	NextThink(pev->ltime + 0.1f, FALSE);
 	SetThink(&CFuncVehicle::Find);
