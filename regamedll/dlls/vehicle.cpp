@@ -316,11 +316,16 @@ void CFuncVehicle::UpdateSound()
 		flpitch = 200;
 
 #ifdef REGAMEDLL_FIXES
-	// Avoid PITCH_NORM (100) — at this value GoldSrc routes the sound through
-	// the regular player instead of VOX sentences, causing adjacent precache
-	// sounds to bleed in. Clamp to 99 so the engine always uses the VOX path.
-	if (flpitch == 100)
-		flpitch = 99;
+	// Never report the engine pitch as exactly PITCH_NORM: a looping sound that is
+	// re-pitched to 100 drops out of the client's pitch-shifting mixer back into the
+	// plain playback path, which then runs past the end of the wave and mixes in
+	// whatever sound follows it in the client's sound cache.
+	// Same guard as CFuncRotating::RampPitchVol() and CAmbientGeneric.
+	int ipitch = int(flpitch);
+	if (ipitch == PITCH_NORM)
+		ipitch = PITCH_NORM - 1;
+#else
+	int ipitch = int(flpitch);
 #endif
 
 	if (!m_soundPlaying)
@@ -330,18 +335,17 @@ void CFuncVehicle::UpdateSound()
 			EMIT_SOUND_DYN(ENT(pev), CHAN_ITEM, "plats/vehicle_brake1.wav", m_flVolume, ATTN_NORM, 0, 100);
 		}
 
-		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noise), m_flVolume, ATTN_NORM, 0, int(flpitch));
+		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noise), m_flVolume, ATTN_NORM, 0, ipitch);
 		m_soundPlaying = 1;
 	}
 	else
 	{
 #ifdef REGAMEDLL_FIXES
-		// Update pitch/volume directly via engine API, bypassing the event system.
-		// PLAYBACK_EVENT_FULL routes through the client's EV_Vehicle handler which
-		// calls EV_PlaySound without SND_CHANGE_PITCH, causing the engine to
-		// re-resolve the precache index on every update — leading to adjacent
-		// precache sounds bleeding in.
-		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noise), m_flVolume, ATTN_NORM, SND_CHANGE_PITCH | SND_CHANGE_VOL, int(flpitch));
+		// Update pitch/volume through the engine sound API instead of the client event:
+		// the event packs the pitch as pitch / 10 into 6 bits, so the range is quantized
+		// to steps of 10 and everything in [100, 110) arrives as PITCH_NORM. The event is
+		// also PVS-filtered, while the sound itself is started with a reliable broadcast.
+		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noise), m_flVolume, ATTN_NORM, SND_CHANGE_PITCH | SND_CHANGE_VOL, ipitch);
 #else
 		unsigned short us_sound = ((unsigned short)(m_sounds) & 0x0007) << 12;
 		unsigned short us_pitch = ((unsigned short)(flpitch / 10.0) & 0x003F) << 6;
