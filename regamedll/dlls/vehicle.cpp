@@ -288,10 +288,14 @@ void CFuncVehicle::StopSound()
 {
 	if (m_soundPlaying && pev->noise)
 	{
+#ifdef REGAMEDLL_FIXES
+		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noise), 0, 0, SND_STOP, PITCH_NORM);
+#else
 		unsigned short us_sound = ((unsigned short)m_sounds & 0x0007) << 12;
 		unsigned short us_encode = us_sound;
 
 		PLAYBACK_EVENT_FULL(FEV_RELIABLE | FEV_UPDATE, edict(), m_usAdjustPitch, 0, (float *)&g_vecZero, (float *)&g_vecZero, 0, 0, us_encode, 0, 1, 0);
+#endif
 	}
 
 	m_soundPlaying = 0;
@@ -331,12 +335,21 @@ void CFuncVehicle::UpdateSound()
 	}
 	else
 	{
+#ifdef REGAMEDLL_FIXES
+		// Update pitch/volume directly via engine API, bypassing the event system.
+		// PLAYBACK_EVENT_FULL routes through the client's EV_Vehicle handler which
+		// calls EV_PlaySound without SND_CHANGE_PITCH, causing the engine to
+		// re-resolve the precache index on every update — leading to adjacent
+		// precache sounds bleeding in.
+		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char *)STRING(pev->noise), m_flVolume, ATTN_NORM, SND_CHANGE_PITCH | SND_CHANGE_VOL, int(flpitch));
+#else
 		unsigned short us_sound = ((unsigned short)(m_sounds) & 0x0007) << 12;
 		unsigned short us_pitch = ((unsigned short)(flpitch / 10.0) & 0x003F) << 6;
 		unsigned short us_volume = ((unsigned short)(m_flVolume * 40) & 0x003F);
 		unsigned short us_encode = us_sound | us_pitch | us_volume;
 
 		PLAYBACK_EVENT_FULL(FEV_UPDATE, edict(), m_usAdjustPitch, 0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, us_encode, 0, 0, 0);
+#endif
 	}
 }
 
