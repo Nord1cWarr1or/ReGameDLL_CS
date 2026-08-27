@@ -174,7 +174,7 @@ cvar_t assist_damage_threshold           = { "mp_assist_damage_threshold", "40",
 cvar_t freezetime_duck                   = { "mp_freezetime_duck", "1", 0, 1.0f, nullptr };
 cvar_t freezetime_jump                   = { "mp_freezetime_jump", "1", 0, 1.0f, nullptr };
 cvar_t jump_height                       = { "mp_jump_height", "45", FCVAR_SERVER, 45.0f, nullptr };
-cvar_t longjump_cooldown                 = { "mp_longjump_cooldown", "0.0", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t longjump_cooldown                 = { "mp_longjump_cooldown", "0.0", 0, 0.0f, nullptr };
 
 cvar_t hostages_rescued_ratio  = { "mp_hostages_rescued_ratio", "1.0", 0, 1.0f, nullptr };
 
