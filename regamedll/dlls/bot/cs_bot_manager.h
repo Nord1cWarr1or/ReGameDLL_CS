@@ -52,6 +52,9 @@ public:
 	virtual void StartFrame();												// (EXTEND) called each frame
 
 	virtual void OnEvent(GameEventType event, CBaseEntity *pEntity = nullptr, CBaseEntity *pOther = nullptr);
+	void OnEvent_OrigFunc(GameEventType event, CBaseEntity *pEntity, CBaseEntity *pOther);
+
+
 	virtual unsigned int GetPlayerPriority(CBasePlayer *pPlayer) const;		// return priority of pPlayer (0 = max pri)
 	virtual bool IsImportantPlayer(CBasePlayer *pPlayer) const;				// return true if pPlayer is important to scenario (VIP, bomb carrier, etc)
 

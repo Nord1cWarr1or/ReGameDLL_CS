@@ -1730,6 +1730,11 @@ CNavArea *CCSBotManager::GetRandomAreaInZone(const Zone *zone) const
 
 void CCSBotManager::OnEvent(GameEventType event, CBaseEntity *pEntity, CBaseEntity *pOther)
 {
+	g_ReGameHookchains.m_CBotManager_OnEvent.callChain(&CCSBotManager::OnEvent_OrigFunc, this, event, pEntity, pOther);
+}
+
+void CCSBotManager::OnEvent_OrigFunc(GameEventType event, CBaseEntity *pEntity, CBaseEntity *pOther)
+{
 	switch (event)
 	{
 	case EVENT_BOMB_PLANTED:
