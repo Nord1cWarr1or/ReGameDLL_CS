@@ -59,9 +59,9 @@ cvar_t cv_bot_chatter                = { "bot_chatter", "normal", FCVAR_SERVER, 
 cvar_t cv_bot_profile_db             = { "bot_profile_db", "BotProfile.db", FCVAR_SERVER, 0.0f, nullptr };
 
 #ifdef REGAMEDLL_ADD
-cvar_t cv_bot_deathmatch             = { "bot_deathmatch", "0", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t cv_bot_quota_mode             = { "bot_quota_mode", "normal", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t cv_bot_join_delay             = { "bot_join_delay", "0", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t cv_bot_deathmatch             = { "bot_deathmatch", "0", 0, 0.0f, nullptr };
+cvar_t cv_bot_quota_mode             = { "bot_quota_mode", "normal", 0, 0.0f, nullptr };
+cvar_t cv_bot_join_delay             = { "bot_join_delay", "0", 0, 0.0f, nullptr };
 cvar_t cv_bot_freeze                 = { "bot_freeze", "0", 0, 0.0f, nullptr };
 cvar_t cv_bot_mimic                  = { "bot_mimic", "0", 0, 0.0f, nullptr };
 cvar_t cv_bot_mimic_yaw_offset       = { "bot_mimic_yaw_offset", "0", 0, 0.0f, nullptr };

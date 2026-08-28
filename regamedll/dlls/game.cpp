@@ -107,7 +107,7 @@ cvar_t scoreboard_showdefkit = { "mp_scoreboard_showdefkit", "1", FCVAR_SERVER, 
 
 cvar_t game_version          = { "game_version", APP_VERSION, FCVAR_SERVER, 0.0f, nullptr };
 cvar_t maxmoney              = { "mp_maxmoney", "16000", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t round_infinite        = { "mp_round_infinite", "0", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t round_infinite        = { "mp_round_infinite", "0", 0, 0.0f, nullptr };
 cvar_t hegrenade_penetration = { "mp_hegrenade_penetration", "0", 0, 0.0f, nullptr };
 cvar_t nadedrops             = { "mp_nadedrops", "0", 0, 0.0f, nullptr };
 cvar_t weapondrop            = { "mp_weapondrop", "1", 0, 1.0f, nullptr };
@@ -118,40 +118,40 @@ cvar_t refill_bpammo_weapons = { "mp_refill_bpammo_weapons", "0", 0, 0.0f, nullp
 cvar_t freeforall            = { "mp_freeforall", "0", FCVAR_SERVER, 0.0f, nullptr };
 cvar_t auto_join_team        = { "mp_auto_join_team", "0", 0, 0.0f, nullptr };
 cvar_t max_teamkills         = { "mp_max_teamkills", "3", 0, 3.0f, nullptr };
-cvar_t fraglimit             = { "mp_fraglimit", "0", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t round_restart_delay   = { "mp_round_restart_delay", "5", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t fraglimit             = { "mp_fraglimit", "0", 0, 0.0f, nullptr };
+cvar_t round_restart_delay   = { "mp_round_restart_delay", "5", 0, 0.0f, nullptr };
 cvar_t showtriggers          = { "showtriggers", "0", 0, 0.0f, nullptr }; // debug cvar shows triggers
                                                                           // TODO: Maybe it's better to register in the engine?
-cvar_t hostagehurtable              = { "mp_hostage_hurtable", "1", FCVAR_SERVER, 1.0f, nullptr };
-cvar_t hostagefear                  = { "mp_hostage_fear", "1", FCVAR_SERVER, 1.0f, nullptr };
-cvar_t roundover                    = { "mp_roundover", "0", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t hostagehurtable              = { "mp_hostage_hurtable", "1", 0, 1.0f, nullptr };
+cvar_t hostagefear                  = { "mp_hostage_fear", "1", 0, 1.0f, nullptr };
+cvar_t roundover                    = { "mp_roundover", "0", 0, 0.0f, nullptr };
 cvar_t forcerespawn                 = { "mp_forcerespawn", "0", FCVAR_SERVER, 0.0f, nullptr };
 cvar_t show_radioicon               = { "mp_show_radioicon", "1", 0, 1.0f, nullptr };
-cvar_t show_scenarioicon            = { "mp_show_scenarioicon", "0", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t show_scenarioicon            = { "mp_show_scenarioicon", "0", 0, 0.0f, nullptr };
 cvar_t old_bomb_defused_sound       = { "mp_old_bomb_defused_sound", "1", 0, 1.0f, nullptr };
-cvar_t item_staytime                = { "mp_item_staytime", "300", FCVAR_SERVER, 300.0f, nullptr };
+cvar_t item_staytime                = { "mp_item_staytime", "300", 0, 300.0f, nullptr };
 cvar_t legacy_bombtarget_touch      = { "mp_legacy_bombtarget_touch", "1", 0, 1.0f, nullptr };
-cvar_t respawn_immunitytime         = { "mp_respawn_immunitytime", "0", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t respawn_immunity_effects     = { "mp_respawn_immunity_effects", "1", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t respawn_immunity_force_unset = { "mp_respawn_immunity_force_unset", "1", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t respawn_immunitytime         = { "mp_respawn_immunitytime", "0", 0, 0.0f, nullptr };
+cvar_t respawn_immunity_effects     = { "mp_respawn_immunity_effects", "1", 0, 0.0f, nullptr };
+cvar_t respawn_immunity_force_unset = { "mp_respawn_immunity_force_unset", "1", 0, 0.0f, nullptr };
 cvar_t kill_filled_spawn            = { "mp_kill_filled_spawn", "1", 0, 0.0f, nullptr };
-cvar_t afk_bomb_drop_time           = { "mp_afk_bomb_drop_time", "0", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t afk_bomb_drop_time           = { "mp_afk_bomb_drop_time", "0", 0, 0.0f, nullptr };
 cvar_t buy_anywhere                 = { "mp_buy_anywhere", "0", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t give_player_c4               = { "mp_give_player_c4", "1", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t weapons_allow_map_placed     = { "mp_weapons_allow_map_placed", "1", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t give_player_c4               = { "mp_give_player_c4", "1", 0, 0.0f, nullptr };
+cvar_t weapons_allow_map_placed     = { "mp_weapons_allow_map_placed", "1", 0, 0.0f, nullptr };
 
 cvar_t allow_point_servercommand    = { "mp_allow_point_servercommand", "0", 0, 0.0f, nullptr };
 cvar_t hullbounds_sets              = { "mp_hullbounds_sets", "1", 0, 0.0f, nullptr };
 cvar_t unduck_method                = { "mp_unduck_method", "0", 0, 0.0f, nullptr };
 
-cvar_t ff_damage_reduction_bullets      = { "ff_damage_reduction_bullets",      "0.35", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t ff_damage_reduction_grenade      = { "ff_damage_reduction_grenade",      "0.25", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t ff_damage_reduction_grenade_self = { "ff_damage_reduction_grenade_self", "1",    FCVAR_SERVER, 0.0f, nullptr };
-cvar_t ff_damage_reduction_other        = { "ff_damage_reduction_other",        "0.25", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t ff_damage_reduction_bullets      = { "ff_damage_reduction_bullets",      "0.35", 0, 0.0f, nullptr };
+cvar_t ff_damage_reduction_grenade      = { "ff_damage_reduction_grenade",      "0.25", 0, 0.0f, nullptr };
+cvar_t ff_damage_reduction_grenade_self = { "ff_damage_reduction_grenade_self", "1",    0, 0.0f, nullptr };
+cvar_t ff_damage_reduction_other        = { "ff_damage_reduction_other",        "0.25", 0, 0.0f, nullptr };
 
-cvar_t radio_timeout           = { "mp_radio_timeout", "1.5", FCVAR_SERVER, 1.5f, nullptr };
-cvar_t radio_maxinround        = { "mp_radio_maxinround", "60", FCVAR_SERVER, 60.0f, nullptr };
-cvar_t falldamage              = { "mp_falldamage", "1", FCVAR_SERVER, 1.0f, nullptr };
+cvar_t radio_timeout           = { "mp_radio_timeout", "1.5", 0, 1.5f, nullptr };
+cvar_t radio_maxinround        = { "mp_radio_maxinround", "60", 0, 60.0f, nullptr };
+cvar_t falldamage              = { "mp_falldamage", "1", 0, 1.0f, nullptr };
 
 cvar_t ct_default_grenades               = { "mp_ct_default_grenades", "", 0, 0.0f, nullptr };
 cvar_t ct_give_player_knife              = { "mp_ct_give_player_knife", "1", 0, 1.0f, nullptr };
@@ -173,7 +173,7 @@ cvar_t deathmsg_flags                    = { "mp_deathmsg_flags", "abc", 0, 0.0f
 cvar_t assist_damage_threshold           = { "mp_assist_damage_threshold", "40", 0, 40.0f, nullptr };
 cvar_t freezetime_duck                   = { "mp_freezetime_duck", "1", 0, 1.0f, nullptr };
 cvar_t freezetime_jump                   = { "mp_freezetime_jump", "1", 0, 1.0f, nullptr };
-cvar_t jump_height                       = { "mp_jump_height", "45", FCVAR_SERVER, 45.0f, nullptr };
+cvar_t jump_height                       = { "mp_jump_height", "45", 0, 45.0f, nullptr };
 
 cvar_t hostages_rescued_ratio  = { "mp_hostages_rescued_ratio", "1.0", 0, 1.0f, nullptr };
 
@@ -184,9 +184,9 @@ cvar_t defuser_allocation      = { "mp_defuser_allocation", "0", 0, 0.0f, nullpt
 cvar_t location_area_info      = { "mp_location_area_info", "0", 0, 0.0f, nullptr };
 cvar_t chat_loc_fallback       = { "mp_chat_loc_fallback", "1", 0, 1.0f, nullptr };
 
-cvar_t item_respawn_time       = { "mp_item_respawn_time", "30", FCVAR_SERVER, 30.0f, nullptr };
-cvar_t weapon_respawn_time     = { "mp_weapon_respawn_time", "20", FCVAR_SERVER, 20.0f, nullptr };
-cvar_t ammo_respawn_time       = { "mp_ammo_respawn_time", "20", FCVAR_SERVER, 20.0f, nullptr };
+cvar_t item_respawn_time       = { "mp_item_respawn_time", "30", 0, 30.0f, nullptr };
+cvar_t weapon_respawn_time     = { "mp_weapon_respawn_time", "20", 0, 20.0f, nullptr };
+cvar_t ammo_respawn_time       = { "mp_ammo_respawn_time", "20", 0, 20.0f, nullptr };
 
 cvar_t vote_flags              = { "mp_vote_flags", "km", 0, 0.0f, nullptr };
 cvar_t votemap_min_time        = { "mp_votemap_min_time", "180", 0, 180.0f, nullptr };
@@ -194,7 +194,7 @@ cvar_t votemap_min_time        = { "mp_votemap_min_time", "180", 0, 180.0f, null
 cvar_t flymove_method          = { "mp_flymove_method", "0", 0, 0.0f, nullptr };
 cvar_t stamina_restore_rate    = { "mp_stamina_restore_rate", "0", 0, 0.f, nullptr };
 
-cvar_t logkills                = { "mp_logkills", "1", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t logkills                = { "mp_logkills", "1", 0, 0.0f, nullptr };
 cvar_t randomspawn             = { "mp_randomspawn", "0", FCVAR_SERVER, 0.0f, nullptr };
 
 cvar_t playerid_showhealth     = { "mp_playerid_showhealth", "1", 0, 1.0f, nullptr };
